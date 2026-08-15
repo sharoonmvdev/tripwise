@@ -1,0 +1,10 @@
+#api call for creating user accoiunt
+###
+POST http://127.0.0.1:8000/api/register/
+Content-Type: application/json
+
+{
+    "username":"django",
+    "email":"django@gmail.com",
+    "password":"Password@123"
+}
