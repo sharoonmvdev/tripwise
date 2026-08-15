@@ -4,7 +4,38 @@ POST http://127.0.0.1:8000/api/register/
 Content-Type: application/json
 
 {
-    "username":"django",
-    "email":"django@gmail.com",
+    "username":"react",
+    "email":"react@gmail.com",
     "password":"Password@123"
 }
+
+
+#api call for adding a trip
+###
+POST http://127.0.0.1:8000/api/trips/
+Content-Type: application/json
+Authorization: Basic django:Password@123
+
+{
+    "title":"famikly trip vagamon",
+    "destination":"vagamon",
+    "start_date":"2026-09-15"
+}
+
+
+
+#api call for listing trips
+###
+GET http://127.0.0.1:8000/api/trips/
+Accept: application/json
+Authorization: Basic django:Password@123
+
+
+
+# api call for getting trip detail
+###
+GET http://127.0.0.1:8000/api/trips/1/
+Accept: application/json
+Authorization: Basic django:Password@123
+
+
