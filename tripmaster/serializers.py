@@ -20,6 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TripSerializer(serializers.ModelSerializer):
 
+    created_by =serializers.StringRelatedField(read_only=True)
+
     class Meta:
 
         model = Trip
@@ -28,6 +30,4 @@ class TripSerializer(serializers.ModelSerializer):
 
         read_only_fields = ["id","created_by","created_at","updated_at"]
 
-        
 
-    

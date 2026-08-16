@@ -17,9 +17,9 @@ Content-Type: application/json
 Authorization: Basic django:Password@123
 
 {
-    "title":"famikly trip vagamon",
-    "destination":"vagamon",
-    "start_date":"2026-09-15"
+    "title":"ooty trip",
+    "destination":"ooty",
+    "start_date":"2026-10-15"
 }
 
 
@@ -37,5 +37,7 @@ Authorization: Basic django:Password@123
 GET http://127.0.0.1:8000/api/trips/1/
 Accept: application/json
 Authorization: Basic django:Password@123
+
+
 
 

@@ -23,6 +23,41 @@ class Trip(models.Model):
     def __str__(self):
         return self.title
 
+
+class TripMember(models.Model):
+
+    ROLE_CHOICES =(
+        ("OWNER","Owner"),
+        ("MEMBER","Member"),
+    )
+
+    trip = models.ForeignKey(
+        Trip,
+        on_delete=models.CASCADE,
+        related_name="members"
+    )
+
+    member = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="trip_members"
+    )
+
+    role = models.CharField(
+        max_length=10,
+        choices=ROLE_CHOICES,
+        default="MEMBER"
+
+    )
+
+    joined_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+
+        unique_together = ("trip","member")
+
+    def __str__(self):
+        return f"{self.member.username} - {self.trip.title}"
     
 
     

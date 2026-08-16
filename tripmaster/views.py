@@ -14,6 +14,8 @@ from rest_framework import authentication,permissions
 
 from rest_framework import serializers
 
+from tripmaster.permissions import OwnerOnly
+
 class SignUpView(APIView):
 
     def post(self,request):
@@ -72,31 +74,24 @@ class TripRetrieveUpdateDeleteView(APIView):
 
     authentication_classes = [authentication.BasicAuthentication]
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [OwnerOnly]
 
     def get(self,request,pk):
 
         trip_object = get_object_or_404(Trip,id=pk)
 
-        if trip_object.created_by == request.user:
+        self.check_object_permissions(request,trip_object)
 
-            serializer_instance = TripSerializer(trip_object)
+        serializer_instance = TripSerializer(trip_object)
 
-            return Response(data=serializer_instance.data)
-
-        else:
-
-            raise serializers.ValidationError("you donot have the permission to perfrm this action")
-
+        return Response(data=serializer_instance.data)
 
 
     def put(self,request,pk):
 
         trip_object = get_object_or_404(Trip,id=pk)
 
-        if trip_object.created_by != request.user:
-
-            raise serializers.ValidationError("access denied..")
+        self.check_object_permissions(request,trip_object)
 
         form_data = request.data
 
@@ -117,9 +112,7 @@ class TripRetrieveUpdateDeleteView(APIView):
 
         trip_object = get_object_or_404(Trip,id=pk)
 
-        if trip_object.created_by != request.user:
-
-            raise serializers.ValidationError("access denied...")
+        self.check_object_permissions(request,trip_object)
 
         trip_object.delete()
 
