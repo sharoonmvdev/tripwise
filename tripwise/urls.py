@@ -20,13 +20,15 @@ from django.urls import path
 from tripmaster.views import SignUpView
 from tripmaster.views import TripListCreateView
 from tripmaster.views import TripRetrieveUpdateDeleteView
+from tripmaster.views import AddMemberView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/register/",SignUpView.as_view()),
     path("api/trips/",TripListCreateView.as_view()),
     path("api/trips/<int:pk>/",TripRetrieveUpdateDeleteView.as_view()),
-
+    path("api/trip/<int:pk>/member/",AddMemberView.as_view()),
+    
 
 
 ]

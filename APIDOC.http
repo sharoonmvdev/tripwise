@@ -39,5 +39,18 @@ Accept: application/json
 Authorization: Basic django:Password@123
 
 
+# api call for adding member to trip
+###
+POST http://127.0.0.1:8000/api/trips/3/member/
+Content-Type: application/json
+Authorization: Basic django:Password@123
+
+{
+    "member":1
+}
+
+
+
+
 
 

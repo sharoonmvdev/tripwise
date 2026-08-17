@@ -4,11 +4,11 @@ from rest_framework.views import APIView
 
 from rest_framework.response import Response
 
-from tripmaster.serializers import UserSerializer,TripSerializer
+from tripmaster.serializers import UserSerializer,TripSerializer,TripMemberSerializer
 
 from django.contrib.auth.models import User
 
-from tripmaster.models import Trip
+from tripmaster.models import Trip,TripMember
 
 from rest_framework import authentication,permissions
 
@@ -120,7 +120,35 @@ class TripRetrieveUpdateDeleteView(APIView):
 
     
 
-       
+class AddMemberView(APIView):
+
+    authentication_classes=[authentication.BasicAuthentication]
+
+    permission_classes=[permissions.IsAuthenticated]
+
+    def post(self,request,pk):
+
+        trip_id = pk
+
+        trip_object = get_object_or_404(Trip,id =trip_id)
+
+        form_data = request.data
+
+        serializer_instance = TripMemberSerializer(data=form_data)
+
+        if serializer_instance.is_valid():
+
+            serializer_instance.save(trip=trip_id)
+
+            return Response(data=serializer_instance.data)
+
+        else:
+
+            return Response(data=serializer_instance.errors)
+
+    
+
+    
 
 
 
