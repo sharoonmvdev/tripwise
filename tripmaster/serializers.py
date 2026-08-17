@@ -45,7 +45,7 @@ class TripSerializer(serializers.ModelSerializer):
 
         fields = "__all__"
 
-        read_only_fields = ["id","created_by","created_at","updated_at","members","trip_member"]
+        read_only_fields = ["id","created_by","created_at","updated_at","members","trip_members"]
 
     def get_member_count(self,trip_obj):
 

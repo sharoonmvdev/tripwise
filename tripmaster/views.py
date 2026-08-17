@@ -57,7 +57,9 @@ class TripListCreateView(APIView):
 
         if serializer_instance.is_valid():
 
-            serializer_instance.save(created_by = request.user)
+            trip =serializer_instance.save(created_by = request.user)
+
+            #TripMember.objects.create(trip=trip,member=request.user,role="OWNER")
 
             #cleaned_data = serializer_instance.validated_data
 
@@ -69,7 +71,7 @@ class TripListCreateView(APIView):
 
             return Response(data=serializer_instance.errors)
 
-
+ 
 class TripRetrieveUpdateDeleteView(APIView):
 
     authentication_classes = [authentication.BasicAuthentication]
@@ -129,16 +131,26 @@ class AddMemberView(APIView):
     def post(self,request,pk):
 
         trip_id = pk
+ 
+        form_data = request.data
 
         trip_object = get_object_or_404(Trip,id =trip_id)
 
-        form_data = request.data
+        member_object = get_object_or_404(User,id=form_data.get("member"))
+
+        if trip_object.created_by != request.user:
+
+            raise serializers.ValidationError("you donot have the permission")
+
+        if TripMember.objects.filter(member=member_object,trip = trip_object).exists():
+
+            raise serializers.ValidationError("already a member ")
 
         serializer_instance = TripMemberSerializer(data=form_data)
 
         if serializer_instance.is_valid():
 
-            serializer_instance.save(trip=trip_id)
+            serializer_instance.save(trip=trip_object,member=member_object)
 
             return Response(data=serializer_instance.data)
 

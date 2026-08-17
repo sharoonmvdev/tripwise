@@ -17,8 +17,8 @@ Content-Type: application/json
 Authorization: Basic django:Password@123
 
 {
-    "title":"ooty trip",
-    "destination":"ooty",
+    "title":"TVM",
+    "destination":"trivandrum",
     "start_date":"2026-10-15"
 }
 
@@ -41,13 +41,15 @@ Authorization: Basic django:Password@123
 
 # api call for adding member to trip
 ###
-POST http://127.0.0.1:8000/api/trips/3/member/
+POST http://127.0.0.1:8000/api/trips/1/member/
 Content-Type: application/json
 Authorization: Basic django:Password@123
 
 {
     "member":1
 }
+
+
 
 
 

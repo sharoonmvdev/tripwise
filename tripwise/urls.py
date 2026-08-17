@@ -27,8 +27,8 @@ urlpatterns = [
     path("api/register/",SignUpView.as_view()),
     path("api/trips/",TripListCreateView.as_view()),
     path("api/trips/<int:pk>/",TripRetrieveUpdateDeleteView.as_view()),
-    path("api/trip/<int:pk>/member/",AddMemberView.as_view()),
-    
+    path("api/trips/<int:pk>/member/",AddMemberView.as_view()),
+
 
 
 ]
